@@ -1,0 +1,6 @@
+.DS_Store
+output
+spin_files
+nohup.out
+test*
+step*
