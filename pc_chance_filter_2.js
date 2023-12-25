@@ -2,14 +2,9 @@ const {make_sys_call} = require('./make_sys_call.js');
 const fs = require('fs');
 const readline = require('readline');
 
-async function pc_chance_filter(fumen, missing_pieces) {
-    // let fumen = "v115@9gh0wwGeg0xwBeQ4Deg0A8wwBtR4ilC8AeBtQ4glLe?AgH";
-    // let missing_pieces = "IO";
+async function pc_chance_filter(fumen) {
+    let command = `java -jar sfinder.jar percent -K +t -d 180 -p '*!' -t '${fumen}' -c 6`
 
-    let command = `java -jar sfinder.jar percent -K +t -d 180 -p '[${missing_pieces}]!,*!' -t '${fumen}' -c 6`
-    if (missing_pieces.length == 0) {
-        command = `java -jar sfinder.jar percent -K +t -d 180 -p '*!' -t '${fumen}' -c 6`
-    }
     let results_string = await make_sys_call(command);
     let results_list = results_string.split("\n");
     for (line of results_list) {
@@ -30,7 +25,7 @@ async function pc_chance_filter(fumen, missing_pieces) {
 }
 
 async function main() {
-    const inputStream = fs.createReadStream("./step_c_2.txt", 'utf8');
+    const inputStream = fs.createReadStream("./step_f_3.txt", 'utf8');
 
     // Create a readable stream for reading lines
     const rl = readline.createInterface({
@@ -39,7 +34,7 @@ async function main() {
     });
 
     // Create a writable stream for the output file
-    const outputStream = fs.createWriteStream("step_d.txt");
+    const outputStream = fs.createWriteStream("step_g.txt");
 
 
     let lineCount = 0;
@@ -48,13 +43,13 @@ async function main() {
     (async () => {
         for await (const line of rl) {
             lineCount++;
-            if (lineCount >= 103706) {
+            if (lineCount >= 0) {
                 console.log(`Line ${lineCount}`);
 
                 split_line = line.trim().split(",");
-                let process_pc_chance = await pc_chance_filter(split_line[0], split_line[1]);
+                let process_pc_chance = await pc_chance_filter(split_line[0]);
     
-                if ((process_pc_chance >= 98.0 && split_line[1].length == 0) || (process_pc_chance >= 99.0 && split_line[1].length == 1) || process_pc_chance >= 100) {
+                if (process_pc_chance >= 98.0) {
                     // If the condition is true, write the line to the output file
                     outputStream.write(`${process_pc_chance},${line}\n`);
                 }
