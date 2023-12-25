@@ -48,8 +48,8 @@ async function processFiles() {
   const uniqueLinesArray = Array.from(uniqueLines);
 
   for (const line of uniqueLinesArray) {
-    // console.log(line);
-    await searchInFile(line, 'step_c_2.txt');
+    console.log(line);
+    // await searchInFile(line, 'step_c_2.txt');
   }
 }
 
