@@ -20,13 +20,28 @@ When satisfied, rename the generated `output.txt` to `step_a.txt`
   This uses the fumens' queue comments, and assumes the setup queue was `*p7`.  
   If the `spin` command was run with a different setup queue, you may want to adjust this function.
 
-- `process_congruents` reads the fumens from `step_c.txt` and processes congruents + mirror congruents, and outputs to `step_c_2.txt`  
+- `process_congruents.js` reads the fumens from `step_c.txt` and processes congruents + mirror congruents, and outputs to `step_c_2.txt`  
   This uses a dictionary to track for duplicates. If the file is too large, there may be memory issues.
 
-- `pc_chance_filter` reads from `step_c_2.txt` and makes sfinder calls and filters for 98%+ fields.  
+- `pc_chance_filter.js` reads from `step_c_2.txt` and makes sfinder calls and filters for 98%+ fields.  
   This may take a long time to finish. If you want to do this in batches, you can adjust start position on line 51.
 
-- next steps: Convert to 7ps via recursive placement script; filter resultant 7ps for percent again; run score on final set.
+- Given that the previous step may have been split up into batches, I've included a quick `combine_d.js` script to combine results into a single file. Edit `fileList`.
+
+- `recursive_to_7p.js` reads from `real_d_2.txt` (you may just name it `d.txt` for simplicity); it generates all 7ps out of the list (which may include 4-7p setups). Outputs to `step_e.txt`.
+
+- Apply filters again to these 7ps.
+
+- `parity_filter_2.js` filters down the 7p list from `step_e.txt` into `step_f.txt`.
+
+- `divider_filter_2.js` filters from `step_f.txt` into `step_f_2.txt`.
+
+- `process_congruents_2.js` reads from `step_f_2.txt` and processes congruents + mirror congruents into `step_f_3.txt`.
+
+- `pc_chance_filter_2.js` reads from `step_f_3.txt` and makes sfinder calls and filters for 98%+ fields.  
+  This may take a long time to finish. If you want to do this in batches, you can adjust start position on line 46.
+
+- next steps: run score on final set.
 
 # Dependencies
 
