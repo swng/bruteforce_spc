@@ -192,7 +192,8 @@ function glue (fumenCodes) {
                 fumenIssues++;
             }
 
-            for (let piecesArr of allPiecesArr) {
+            // for (let piecesArr of allPiecesArr) {
+                let piecesArr = allPiecesArr[0];
                 let pages = [];
                 pages.push({
                     field: emptyField,
@@ -205,12 +206,12 @@ function glue (fumenCodes) {
                 }
                 let pieceFumen = encoder.encode(pages);
                 allFumens.push(pieceFumen);
-            }
+            // }
 
-            if (allPiecesArr.length > 1) {
-                // multiple outputs warning
-                console.log(code + " led to " + allPiecesArr.length + " outputs: " + allFumens.join(" "));
-            }
+            // if (allPiecesArr.length > 1) {
+            //     // multiple outputs warning
+            //     console.log(code + " led to " + allPiecesArr.length + " outputs: " + allFumens.join(" "));
+            // }
         }
     }
     if (fumenCodes.length > allFumens.length) {

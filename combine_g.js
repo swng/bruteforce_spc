@@ -4,7 +4,7 @@ const readline = require('readline');
 const fileList = [
     '1.txt', '2.txt', '3.txt', '4.txt'
 ]
-const uniqueLines = new Set();
+let uniqueLines = {};
 
 async function readAndFilterFile(filename) {
   const fileStream = fs.createReadStream(`step_g_files/${filename}`);
@@ -14,7 +14,10 @@ async function readAndFilterFile(filename) {
   });
 
   for await (const line of rl) {
-    uniqueLines.add(line);
+    let split_lines = line.split(",");
+    if (!(split_lines[1] in uniqueLines)) { // using dictionary and only checking greyed line field congruency
+      uniqueLines[split_lines[1]] = line;
+    }
   }
 }
 
@@ -45,7 +48,7 @@ async function processFiles() {
     await readAndFilterFile(filename);
   }
 
-  const uniqueLinesArray = Array.from(uniqueLines);
+  let uniqueLinesArray = Object.values(uniqueLines);
 
   for (const line of uniqueLinesArray) {
     console.log(line);

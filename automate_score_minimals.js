@@ -46,7 +46,7 @@ async function score_minimals(fumen, name) {
         // console.log(command);
         await make_sys_call(command);
 
-        await wrapper_reduce_to_maximal_scoring_cover("output/cover.csv", "output/cover_nohold.csv", "new_cover.csv", true, 1, 0, 200, undefined);
+        await wrapper_reduce_to_maximal_scoring_cover("output/cover.csv", "output/cover_nohold.csv", "new_cover.csv", true, 1, 0, 300, undefined);
 
         await cover_to_path('./new_cover.csv', './path.csv' );
 
